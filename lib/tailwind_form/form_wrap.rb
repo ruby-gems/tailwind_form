@@ -19,9 +19,15 @@ module TailwindForm
 
     def group(&block)
       @template.content_tag :div, class: "form-group" do
-        @template.content_tag :div, class: "form-inputs md:pl-[10rem]" do
-          yield block
+        label = @template.content_tag :div, class: "form-label" do
         end
+        @template.concat label
+        inputs = @template.content_tag :div, class: "form-inputs" do
+          @template.content_tag :div, class: "form-item" do
+            yield block
+          end
+        end
+        @template.concat inputs
       end
     end
   end

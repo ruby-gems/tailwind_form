@@ -39,6 +39,8 @@ module TailwindForm
       append = input_html.delete(:append)
       prepend = input_html.delete(:prepend)
 
+      hint = input_html.delete(:hint)
+
       error_field_name = reflection ? reflection.name : field_name
 
       if errors[error_field_name]&.any?
@@ -81,6 +83,9 @@ module TailwindForm
         end
 
         inputs += errors_for(error_field_name)
+        if hint && errors[field_name].blank?
+          inputs += @template.content_tag(:div, hint, class: "form-hint")
+        end
         label_dev + wrapping(:input, inputs)
       end
     end
@@ -139,7 +144,7 @@ module TailwindForm
         priority_zones = field_options.delete(:priority_zones)
         time_zone_select(field_name, priority_zones, field_options)
       when :boolean
-        check_box(field_name, field_options)
+        check_box(field_name, field_options.merge(class: "form-checkbox"))
       else
         method_mappings = {
           date: :date_field,
