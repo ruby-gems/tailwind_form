@@ -86,7 +86,10 @@ module TailwindForm
         if hint && errors[field_name].blank?
           inputs += @template.content_tag(:div, hint, class: "form-hint")
         end
-        label_dev + wrapping(:input, inputs)
+
+        # style
+        type = as ? as : infer_type(field_name)
+        label_dev + wrapping(type, inputs)
       end
     end
 
@@ -145,6 +148,8 @@ module TailwindForm
         time_zone_select(field_name, priority_zones, field_options)
       when :boolean
         check_box(field_name, field_options.merge(class: "form-checkbox"))
+      when :rich_text
+        rich_text_area(field_name, field_options.merge(class: "form-input form-rich-text"))
       else
         method_mappings = {
           date: :date_field,

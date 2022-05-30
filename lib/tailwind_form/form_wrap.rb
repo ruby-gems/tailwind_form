@@ -2,7 +2,10 @@
 
 module TailwindForm
   module FormWrap
-    def wrapping(type, inner, tag: "div", wrap: {input: "form-inputs > form-item"})
+    def wrapping(type, inner, tag: "div", wrap: {string: "form-inputs > form-item"})
+      # puts type, wrap[type], "------"
+      wrap[type] ||= "form-inputs > form-item"
+      wrap[:rich_text] = "form-inputs > form-item form-rich-item"
       if wrap[type].present?
         css_ary = wrap[type].split(" > ")
         css_ary.reverse_each.with_index do |css, index|
