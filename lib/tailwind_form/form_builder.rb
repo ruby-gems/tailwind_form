@@ -68,11 +68,11 @@ module TailwindForm
         # end
         # label_options = required_attribute?() if required_attribute?(method)
         label_options = {reflection: reflection}.merge(label_html)
-        input_label = label != false ? label(field_name, label, label_options) : ""
+        # input_label = label != false ? label(field_name, label, label_options) : ""
 
-        label_dev = @template.content_tag(:div, class: "form-label") do
-          input_label.html_safe
-        end
+        label_dev = label != false ? @template.content_tag(:div, class: "form-label") do
+          label(field_name, label, label_options)
+        end : ""
 
         inputs = input_for(field_name, as, input_html, values: values)
         if append
@@ -88,8 +88,9 @@ module TailwindForm
         end
 
         # style
-        type = as ? as : infer_type(field_name)
-        label_dev + wrapping(type, inputs)
+        # type = as ? as : infer_type(field_name)
+        type = as || (@object.nil? ? :text_field : infer_type(field_name))
+        (label_dev + wrapping(type, inputs)).html_safe
       end
     end
 
