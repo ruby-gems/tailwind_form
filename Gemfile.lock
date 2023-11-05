@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tailwind_form (0.1.1)
+    tailwind_form (0.1.2)
       rails (>= 7.0.0)
 
 GEM
@@ -147,6 +147,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-18
+  x86_64-darwin-21
 
 DEPENDENCIES
   active_record_doctor
@@ -159,4 +160,4 @@ DEPENDENCIES
   tailwind_form!
 
 BUNDLED WITH
-   2.2.3
+   2.4.20
